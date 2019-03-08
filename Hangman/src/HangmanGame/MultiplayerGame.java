@@ -1,5 +1,7 @@
 package HangmanGame;
+
 import java.util.Scanner;
+
 /**
  * 
  * @author Camilla
@@ -15,7 +17,7 @@ public class MultiplayerGame {
 	public MultiplayerGame() {
 		game = new Game();
 		sc = new Scanner(System.in);
-		startGame=false;
+		startGame = false;
 	}
 
 	/**
@@ -26,23 +28,23 @@ public class MultiplayerGame {
 		System.out.println("Multiplayer version mean that one player enter a word and the other player");
 		System.out.println("get to guess the letters of the word. If player 2 manage to guess the word");
 		System.out.println("that means he won, however if he does not player 1 win!\n");
-		
-		while(startGame==false) {
+
+		while (startGame == false) {
 			System.out.print("Player 1 enter a word:");
 			word = sc.next();
-			
-			while(checkWord(word)==false) {
+
+			while (checkWord(word) == false) {
 				System.out.println("Not a valid word, word must only contain letters!");
 				System.out.print("Enter a new word: ");
 				word = sc.next();
 			}
-			
+
 			Main.printEmptyLines();
-			
+
 			System.out.println("Player 1 have now entered a word!\n");
 			System.out.println("Press 1 to play game with this word");
 			System.out.println("Press 2 to change the entered word");
-			
+
 			Main.checkIntInput(sc);
 			int input = sc.nextInt();
 			while (!(input == 1 | input == 2)) {
@@ -51,36 +53,39 @@ public class MultiplayerGame {
 				input = sc.nextInt();
 			}
 			Main.printEmptyLines();
-			if(input==1) {
-			System.out.println("Player 2 should now guess:");	
-			System.out.println("Enter any character to start game");
-			sc.next();
-				startGame=true;
+			if (input == 1) {
+				System.out.println("Player 2 should now guess:");
+				System.out.println("Enter any character to start game");
+				sc.next();
+				startGame = true;
 				game.setWord(word);
 				game.playGame();
 			}
 		}
 		Main.printEmptyLines();
-		if(game.gameSucceded()) {
+		if (game.gameSucceded()) {
 			System.out.println("Player 2 won the game! Congratulations!");
-		}else {
+		} else {
 			System.out.println("Player 1 won the game! Congratulations!");
 		}
 		System.out.println("Enter any character to continue");
 		sc.next();
 	}
-	
+
 	/**
 	 * Check that word only consist of letters and '-'
-	 * @param word String to be checked
+	 * 
+	 * @param word
+	 *            String to be checked
 	 * @return True if word is valid, otherwise false
 	 */
-	private boolean checkWord(String word) {
-		for(int i = 0; i<word.length();i++) {
-			if(!Character.isLetter(word.charAt(i))&word.charAt(i)!='-') {
+	public boolean checkWord(String word) {
+		for (int i = 0; i < word.length(); i++) {
+			if (!Character.isLetter(word.charAt(i)) & word.charAt(i) != '-') {
 				return false;
 			}
 		}
 		return true;
 	}
+	
 }

@@ -1,4 +1,5 @@
 package HangmanGame;
+
 import java.util.Scanner;
 
 public class Game {
@@ -31,19 +32,19 @@ public class Game {
 	public void playGame() {
 		continueGame = true;
 
-		while (checkAnswer(underscores) == false & numberOfGuessesLeft > 0 & continueGame == true
+		while (gameSucceded() == false & numberOfGuessesLeft > 0 & continueGame == true
 				& Main.continueProgram() == true) {
 			Main.printEmptyLines();
 
 			System.out.println("Press 1 to return to the Menu");
 			System.out.println("Press 2 to terminate program");
 
-			printUnderscores(underscores);
+			System.out.println(underscoresToString());
 
 			stickman.drawStickman();
 			// System.out.println("\nNumber of guesses left: " + numberOfGuessesLeft);
 			System.out.print("Guessed letters: " + guessedLetters.toString());
-			System.out.print("\nGuess a letter:");
+			System.out.print("\nEnter menu choice or guess a letter:");
 
 			String input = sc.next();
 			while (input.length() != 1
@@ -57,28 +58,12 @@ public class Game {
 			} else if (input.charAt(0) == '2') {
 				Main.terminateProgram();
 			} else if (Character.isLetter(input.charAt(0))) {
-				Boolean correct = false;
-				char guess = Character.toLowerCase(input.charAt(0));
-				for (int i = 0; i < theWord.length(); i++) {
-					if (guess == Character.toLowerCase(theWord.charAt(i))) {
-						underscores[i] = " " + theWord.charAt(i);
-						correct = true;
-					}
-				}
-				if (!correct) {
-					if (guessedLetters.letterAlreadyGuessed(guess) == false) {
-						guessedLetters.addLetter(guess);
-						stickman.addPart();
-						numberOfGuessesLeft--;
-					}
-
-				}
-
+				guessLetter(input);
 			}
 		}
 
 		Main.printEmptyLines();
-		if (checkAnswer(underscores) == true) {
+		if (gameSucceded() == true) {
 			stickman.drawHappyStickman();
 			System.out.println("Yay, the man survived! Correct word: " + theWord);
 			System.out.println("Enter any character to continue");
@@ -98,52 +83,63 @@ public class Game {
 	 * @param word
 	 *            New solution to the game
 	 */
-	public void setWord(String word) {
-		theWord = word;
-		underscores = new String[theWord.length()];
-		for (int i = 0; i < theWord.length(); i++) {
-			if (theWord.charAt(i) == '-') {
-				underscores[i] = " -";
-			} else {
-				underscores[i] = " _";
+	public void setWord(String word) throws IllegalArgumentException {
+			if(checkWord(word)) {
+				theWord = word;
+				underscores = new String[theWord.length()];
+				for (int i = 0; i < theWord.length(); i++) {
+					if (theWord.charAt(i) == '-') {
+						underscores[i] = " -";
+					} else {
+						underscores[i] = " _";
+					}
+
+				}
+			}else {
+				throw new IllegalArgumentException();
 			}
-
-		}
-	};
+	}
 
 	/**
-	 * Return true if player have won this game.
+	 * Return the correct word of the game
 	 * 
-	 * @return true if player gave won this game, otherwise false
+	 * @return the solution to the game
 	 */
-	public boolean gameSucceded() {
-		if (checkAnswer(underscores) == true) {
-			return true;
-		} else {
-			return false;
+	public String getWord() {
+		return theWord;
+	}
+
+	/**
+	 * Guess a letter, if letter is correct the underscores in the correct
+	 * position is exchanged. If the letter is incorrect it is added to 
+	 * guessed letters and part of the hangman figure is added.
+	 * 
+	 * @param input letter to be guessed
+	 */
+	public void guessLetter(String input) {
+		Boolean correct = false;
+		char guess = Character.toLowerCase(input.charAt(0));
+		for (int i = 0; i < theWord.length(); i++) {
+			if (guess == Character.toLowerCase(theWord.charAt(i))) {
+				underscores[i] = " " + theWord.charAt(i);
+				correct = true;
+			}
+		}
+		if (!correct) {
+			if (guessedLetters.letterAlreadyGuessed(guess) == false) {
+				guessedLetters.addLetter(guess);
+				stickman.addPart();
+				numberOfGuessesLeft--;
+			}
 		}
 	}
 
 	/**
-	 * Print array of underscores/letters
+	 * Check if all letters in the word is guessed
 	 * 
-	 * @param underscores
-	 *            Array to be printed
-	 */
-	private void printUnderscores(String[] underscores) {
-		for (int i = 0; i < underscores.length; i++) {
-			System.out.print(underscores[i]);
-		}
-	}
-
-	/**
-	 * Check if all underscores are replaced by the correct letter
-	 * 
-	 * @param underscores
-	 *            Array whit underscores/letters
 	 * @return true if all correct letters are guessed, otherwise false
 	 */
-	private boolean checkAnswer(String[] underscores) {
+	public boolean gameSucceded() {
 		for (int i = 0; i < underscores.length; i++) {
 			if (underscores[i] == " _") {
 				return false;
@@ -152,6 +148,34 @@ public class Game {
 		return true;
 	}
 
+	/**
+	 * Return array of underscores/letters
+	 * 
+	 * @return underscores which either consist of underscores and/or letters
+	 */
+	public String underscoresToString() {
+		String underscoresString = "";
+		for (int i = 0; i < underscores.length; i++) {
+			underscoresString += underscores[i];
+		}
+		return underscoresString;
+	}
+
+	/**
+	 * Check if it is a valid word which only consist of letters and dashes
+	 * 
+	 * @param word Word to be checked
+	 * @return True if word is valid, otherwise false
+	 */
+	public boolean checkWord(String word) {
+		for(int i = 0; i<word.length();i++) {
+			if(!Character.isLetter(word.charAt(i))&word.charAt(i)!='-') {
+				return false;
+			}
+		}
+		return true; 
+	}
+	
 	/**
 	 * Ask if user want to return to menu Ends this game of hangman if user chooses
 	 * to, otherwise does nothing

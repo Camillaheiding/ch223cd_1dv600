@@ -16,7 +16,7 @@ public class GuessedLetters {
 	}
 
 	/**
-	 * Prints a string representation of all letters in the list
+	 * Returns a string representation of all letters in the list
 	 */
 	public String toString() {
 		String result = "";
@@ -27,19 +27,13 @@ public class GuessedLetters {
 	}
 
 	/**
-	 * Add a letter to the string
+	 * Add a letter to the list of guessed letters
 	 * 
 	 * @param letter
 	 *            Letter to be added
 	 */
 	public void addLetter(char letter) {
-		boolean alreadyGuessed = false;
-		for (int i = 0; i < guessedLetters.size(); i++) {
-			if (guessedLetters.get(i) == letter) {
-				alreadyGuessed = true;
-			}
-		}
-		if (alreadyGuessed == false) {
+		if (letterAlreadyGuessed(letter)==false) {
 			guessedLetters.add(letter);
 		}
 	}
@@ -52,8 +46,9 @@ public class GuessedLetters {
 	 * @return true if list contain letter, otherwise false
 	 */
 	public boolean letterAlreadyGuessed(char letter) {
-		for (int i = 0; i < guessedLetters.size(); i++) {
-			if (guessedLetters.get(i) == letter) {
+		for (int i = 0; i < guessedLetters.size(); i++) { //Incorrect solution
+			//if (letter == guessedLetters.get(i)) { //Correct solution
+			if(letter=='c') {
 				return true;
 			}
 		}

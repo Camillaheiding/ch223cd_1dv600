@@ -20,7 +20,8 @@ public class Words {
 	public Words() {
 
 		try{
-			File file = new File("src\\nounlist.txt");
+			//File file = new File("src\\nounlist.txt"); //Comment out during testing
+			File file = new File("src\\test.txt"); //Use during testing
 			Scanner fileScan = new Scanner(file);
 
 			words = new ArrayList<String>();
@@ -29,6 +30,7 @@ public class Words {
 				words.add(fileScan.next());
 			}
 			fileScan.close();
+
 		}catch(FileNotFoundException e) {
 			System.err.println("Textfile with list of nouns not found");
 		}
@@ -36,7 +38,7 @@ public class Words {
 	}
 
 	/**
-	 * Returns a randomly picked word from the textfile.
+	 * Returns a randomly picked word from the textfile. 
 	 * 
 	 * @return String with a randomly picked word.
 	 */
