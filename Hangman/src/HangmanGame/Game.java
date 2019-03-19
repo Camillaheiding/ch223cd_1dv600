@@ -2,6 +2,15 @@ package HangmanGame;
 
 import java.util.Scanner;
 
+/**
+ * Represent a single game of hangman where the player guess on one word and
+ * either win or lose and then goes back to previous state. The player is also
+ * has the opportunity to go back to the menu or terminate the program during
+ * the game.
+ * 
+ * @author Camilla
+ *
+ */
 public class Game {
 
 	private int numberOfGuessesLeft;
@@ -42,7 +51,6 @@ public class Game {
 			System.out.println(underscoresToString());
 
 			stickman.drawStickman();
-			// System.out.println("\nNumber of guesses left: " + numberOfGuessesLeft);
 			System.out.print("Guessed letters: " + guessedLetters.toString());
 			System.out.print("\nEnter menu choice or guess a letter:");
 
@@ -54,7 +62,7 @@ public class Game {
 			}
 
 			if (input.charAt(0) == '1') {
-				returnToMenu();
+				this.returnToMenu();
 			} else if (input.charAt(0) == '2') {
 				Main.terminateProgram();
 			} else if (Character.isLetter(input.charAt(0))) {
@@ -66,14 +74,10 @@ public class Game {
 		if (gameSucceded() == true) {
 			stickman.drawHappyStickman();
 			System.out.println("Yay, the man survived! Correct word: " + theWord);
-			System.out.println("Enter any character to continue");
-			sc.next();
-
 		} else if (numberOfGuessesLeft == 0) {
+			Main.stopPlaying();
 			stickman.drawStickman();
 			System.out.println("Oh no, he died! Correct word: " + theWord);
-			System.out.println("Enter any character to continue");
-			sc.next();
 		}
 	}
 
@@ -84,20 +88,20 @@ public class Game {
 	 *            New solution to the game
 	 */
 	public void setWord(String word) throws IllegalArgumentException {
-			if(checkWord(word)) {
-				theWord = word;
-				underscores = new String[theWord.length()];
-				for (int i = 0; i < theWord.length(); i++) {
-					if (theWord.charAt(i) == '-') {
-						underscores[i] = " -";
-					} else {
-						underscores[i] = " _";
-					}
-
+		if (checkWord(word)) {
+			theWord = word;
+			underscores = new String[theWord.length()];
+			for (int i = 0; i < theWord.length(); i++) {
+				if (theWord.charAt(i) == '-') {
+					underscores[i] = " -";
+				} else {
+					underscores[i] = " _";
 				}
-			}else {
-				throw new IllegalArgumentException();
+
 			}
+		} else {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	/**
@@ -110,11 +114,12 @@ public class Game {
 	}
 
 	/**
-	 * Guess a letter, if letter is correct the underscores in the correct
-	 * position is exchanged. If the letter is incorrect it is added to 
-	 * guessed letters and part of the hangman figure is added.
+	 * Guess a letter, if letter is correct the underscores in the correct position
+	 * is exchanged. If the letter is incorrect it is added to guessed letters and
+	 * part of the hangman figure is added.
 	 * 
-	 * @param input letter to be guessed
+	 * @param input
+	 *            letter to be guessed
 	 */
 	public void guessLetter(String input) {
 		Boolean correct = false;
@@ -149,7 +154,16 @@ public class Game {
 	}
 
 	/**
-	 * Return array of underscores/letters
+	 * Check if the player is out of guesses
+	 * 
+	 * @return true if the game is lost, otherwise false
+	 */
+	public boolean gameLost() {
+		return numberOfGuessesLeft == 0;
+	}
+
+	/**
+	 * Return array of underscores/letters as a string
 	 * 
 	 * @return underscores which either consist of underscores and/or letters
 	 */
@@ -164,21 +178,22 @@ public class Game {
 	/**
 	 * Check if it is a valid word which only consist of letters and dashes
 	 * 
-	 * @param word Word to be checked
+	 * @param word
+	 *            Word to be checked
 	 * @return True if word is valid, otherwise false
 	 */
 	public boolean checkWord(String word) {
-		for(int i = 0; i<word.length();i++) {
-			if(!Character.isLetter(word.charAt(i))&word.charAt(i)!='-') {
+		for (int i = 0; i < word.length(); i++) {
+			if (!Character.isLetter(word.charAt(i)) & word.charAt(i) != '-') {
 				return false;
 			}
 		}
-		return true; 
+		return true;
 	}
-	
+
 	/**
-	 * Ask if user want to return to menu Ends this game of hangman if user chooses
-	 * to, otherwise does nothing
+	 * Ask if user want to return to menu, returns if user chooses to, otherwise
+	 * return to the game
 	 */
 	private void returnToMenu() {
 		Main.printEmptyLines();
@@ -195,6 +210,7 @@ public class Game {
 		}
 		if (confirmation == 1) {
 			continueGame = false;
+			Main.stopPlaying();
 		}
 	}
 }

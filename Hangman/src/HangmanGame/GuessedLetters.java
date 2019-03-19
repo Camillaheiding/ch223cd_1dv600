@@ -1,8 +1,10 @@
 package HangmanGame;
+
 import java.util.ArrayList;
 
 /**
- * Class contain a list of letters.
+ * Class contain a list of letters the player has guessed which was not part of
+ * the word.
  * 
  * @author Camilla
  *
@@ -17,6 +19,8 @@ public class GuessedLetters {
 
 	/**
 	 * Returns a string representation of all letters in the list
+	 * 
+	 * @return String representation of the letters in the list
 	 */
 	public String toString() {
 		String result = "";
@@ -27,13 +31,14 @@ public class GuessedLetters {
 	}
 
 	/**
-	 * Add a letter to the list of guessed letters
+	 * Add a letter to the list of guessed letters if it is not already part of the
+	 * list
 	 * 
 	 * @param letter
 	 *            Letter to be added
 	 */
 	public void addLetter(char letter) {
-		if (letterAlreadyGuessed(letter)==false) {
+		if (letterAlreadyGuessed(letter) == false) {
 			guessedLetters.add(letter);
 		}
 	}
@@ -46,9 +51,8 @@ public class GuessedLetters {
 	 * @return true if list contain letter, otherwise false
 	 */
 	public boolean letterAlreadyGuessed(char letter) {
-		for (int i = 0; i < guessedLetters.size(); i++) { //Incorrect solution
-			//if (letter == guessedLetters.get(i)) { //Correct solution
-			if(letter=='c') {
+		for (int i = 0; i < guessedLetters.size(); i++) {
+			if (letter == guessedLetters.get(i)) {
 				return true;
 			}
 		}

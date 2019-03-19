@@ -3,6 +3,9 @@ package HangmanGame;
 import java.util.Scanner;
 
 /**
+ * Plays a multiplayer game of hangman. Ask one player to enter a word and the
+ * other to play a game with this word. Display result when game is over and
+ * then return to main menu.
  * 
  * @author Camilla
  *
@@ -21,7 +24,8 @@ public class MultiplayerGame {
 	}
 
 	/**
-	 * Plays a multiplayer game of hangman
+	 * Plays a multiplayer game of hangman. Ask one player to enter a word and the
+	 * other to play a game with this word.
 	 */
 	public void playGame() {
 		Main.printEmptyLines();
@@ -87,5 +91,5 @@ public class MultiplayerGame {
 		}
 		return true;
 	}
-	
+
 }
