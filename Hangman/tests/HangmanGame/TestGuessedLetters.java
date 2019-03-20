@@ -15,7 +15,7 @@ public class TestGuessedLetters {
 	public void setup() {
 		sut = new GuessedLetters(); 
 	}
-	
+	 
 	@Test
 	public void testToString() {
 		sut.addLetter('a');

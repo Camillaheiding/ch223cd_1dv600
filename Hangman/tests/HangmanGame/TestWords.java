@@ -5,10 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-
-
-
 public class TestWords {
 	
 	private Words sut;
@@ -28,7 +24,7 @@ public class TestWords {
 		
 		assertEquals(expected, actual);
 	}
-	
+	 
 	//indexOfWord()
 	
 	@Test
@@ -70,7 +66,6 @@ public class TestWords {
 		sut = new Words();
 		actual = sut.indexOfWord("Test");
 		assertEquals(expected, actual);
-		
 	}
 	
 

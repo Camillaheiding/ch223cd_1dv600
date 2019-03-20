@@ -57,6 +57,6 @@ public class GuessedLetters {
 			}
 		}
 		return false;
-	}
+	} 
 
 }

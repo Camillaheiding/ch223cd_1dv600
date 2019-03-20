@@ -2,7 +2,10 @@ package HangmanGame;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -17,15 +20,21 @@ import java.util.Scanner;
  */
 public class Words {
 
-	//private String searchCode = "src\\nounlist.txt"; //Comment out during testing
-	private String searchCode = "src\\test.txt"; // Use during testing
-	private ArrayList<String> words;
+	private String searchCode = "src\\nounlist.txt"; // Comment out during testing
+	//private String searchCode = "src\\test.txt"; // Use during testing
 	
+	private ArrayList<String> words;
+
 	public Words() {
+
+		Path path = Paths.get(searchCode);
+		File file = new File(path.toAbsolutePath().toString());
 		
-		try { 
-			File file = new File(searchCode); 
-			Scanner fileScan = new Scanner(file);
+		System.out.println(path.toAbsolutePath().toString());
+		
+		try {
+			Scanner fileScan;
+			fileScan = new Scanner(file);
 
 			words = new ArrayList<String>();
 
@@ -33,9 +42,9 @@ public class Words {
 				words.add(fileScan.next());
 			}
 			fileScan.close();
-
 		} catch (FileNotFoundException e) {
-			System.err.println("Textfile with list of nouns not found");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -52,8 +61,11 @@ public class Words {
 	}
 
 	/**
-	 * Check which index the word has in the list of words, if not present returns -1. 
-	 * @param word Word to be checked for
+	 * Check which index the word has in the list of words, if not present returns
+	 * -1.
+	 * 
+	 * @param word
+	 *            Word to be checked for
 	 * @return index of word, -1 if not present
 	 */
 	public int indexOfWord(String word) {
@@ -65,7 +77,6 @@ public class Words {
 				wordSmallCases += word.charAt(i);
 			}
 		}
-
 		for (int i = 0; i < words.size(); i++) {
 			String listWord = "";
 			for (int j = 0; j < words.get(i).length(); j++) {
@@ -81,8 +92,8 @@ public class Words {
 		}
 		return -1;
 	}
-	
-	/**
+
+	/** 
 	 * Remove the word from list of word and txt-file the word was recieved from.
 	 * 
 	 * @param word
@@ -101,7 +112,7 @@ public class Words {
 		} catch (FileNotFoundException e) {
 		}
 	}
-	
+
 	/**
 	 * Add the word to list of word and txt-file the words was recieved from.
 	 * 

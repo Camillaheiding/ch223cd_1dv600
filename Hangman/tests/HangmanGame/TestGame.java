@@ -52,13 +52,13 @@ public class TestGame {
 		assertEquals(expected, actual);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test (expected = IllegalArgumentException.class)
 	public void testSetWordInvalidWord() {
 		String invalidWord = "*";
 
 		sut.setWord(invalidWord); // this should throw an IllegalArgumentException
 	}
-	
+
 	// guessLetter(String letter)
 
 	@Test
@@ -123,33 +123,33 @@ public class TestGame {
 	}
 
 	// gameLost()
-	
+
 	@Test
 	public void testGameLostfalse() {
 		boolean expected = false;
-		sut.guessLetter("d"); 
-		sut.guessLetter("d"); // same letter second time 
+		sut.guessLetter("d");
+		sut.guessLetter("d"); // same letter second time
 		sut.guessLetter("q");
 		sut.guessLetter("r");
 		sut.guessLetter("y");
 		sut.guessLetter("u");
 		sut.guessLetter("o");
 		sut.guessLetter("p");
-		sut.guessLetter("m"); //eight different quesses
-		
+		sut.guessLetter("m"); // eight different quesses
+
 		boolean actual = sut.gameLost();
-		
+
 		assertEquals(expected, actual);
-		
+
 		sut.guessLetter("t");
 		sut.guessLetter("e");
-		sut.guessLetter("s"); //won game
-		
+		sut.guessLetter("s"); // won game
+
 		actual = sut.gameLost();
-		
+
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testGameLostTrue() {
 		boolean expected = true;
@@ -161,14 +161,13 @@ public class TestGame {
 		sut.guessLetter("n");
 		sut.guessLetter("m");
 		sut.guessLetter("q");
-		sut.guessLetter("w");//nine different quesses = out of guesses
-		
+		sut.guessLetter("w");// nine different quesses = out of guesses
+
 		boolean actual = sut.gameLost();
-		
+
 		assertEquals(expected, actual);
 	}
-	
-	
+
 	// underscoresToString()
 
 	@Test
@@ -189,37 +188,34 @@ public class TestGame {
 
 		assertEquals(expected, actual);
 	}
-	
-	//checkWord()
-	
+
+	// checkWord()
+
 	@Test
 	public void testCheckWordValidWord() {
 		boolean expected = true;
-		
-		boolean actual = sut.checkWord("Example"); 
+
+		boolean actual = sut.checkWord("Example");
 
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testCheckWordValidWordWithDash() {
 		boolean expected = true;
-		
+
 		boolean actual = sut.checkWord("Grand-parent");
 
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testCheckWordInvalidWord() {
 		boolean expected = false;
-		
+
 		boolean actual = sut.checkWord("*,*");
-		
+
 		assertEquals(expected, actual);
 	}
-
-	
-
 
 }
