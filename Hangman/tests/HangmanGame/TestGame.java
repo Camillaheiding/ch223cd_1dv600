@@ -52,7 +52,7 @@ public class TestGame {
 		assertEquals(expected, actual);
 	}
 
-	@Test (expected = IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testSetWordInvalidWord() {
 		String invalidWord = "*";
 
