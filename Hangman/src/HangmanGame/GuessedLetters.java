@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Class contain a list of letters the player has guessed which was not part of
  * the word.
  * 
- * @author Camilla
+ * @author Camilla Heiding
  *
  */
 public class GuessedLetters {

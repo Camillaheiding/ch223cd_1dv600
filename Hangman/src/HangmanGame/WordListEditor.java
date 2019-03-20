@@ -6,7 +6,7 @@ import java.util.Scanner;
  * return to menu or terminate the program from this stage. Multiply words i
  * possible to be removed before returning to menu.
  * 
- * @author Camilla
+ * @author Camilla Heiding
  *
  */
 public class WordListEditor {

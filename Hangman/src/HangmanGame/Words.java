@@ -15,7 +15,7 @@ import java.util.Scanner;
  * consist of nouns and no signs.
  * 
  * 
- * @author Camilla
+ * @author Camilla Heiding
  *
  */
 public class Words {

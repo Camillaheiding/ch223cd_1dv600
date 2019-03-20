@@ -8,7 +8,7 @@ import java.util.Scanner;
  * has the opportunity to go back to the menu or terminate the program during
  * the game.
  * 
- * @author Camilla
+ * @author Camilla Heiding
  *
  */
 public class Game {

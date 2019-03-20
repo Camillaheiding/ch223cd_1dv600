@@ -7,7 +7,7 @@ import java.util.Scanner;
  * other to play a game with this word. Display result when game is over and
  * then return to main menu.
  * 
- * @author Camilla
+ * @author Camilla Heiding
  *
  */
 public class MultiplayerGame {

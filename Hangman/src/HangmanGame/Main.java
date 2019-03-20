@@ -8,7 +8,7 @@ import java.util.Scanner;
  * version. The player is also capable to remove words from the predefined list
  * of words.
  * 
- * @author Camilla
+ * @author Camilla Heiding
  *
  */
 

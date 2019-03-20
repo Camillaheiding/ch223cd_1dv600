@@ -5,7 +5,7 @@ package HangmanGame;
  * Represents a stickmanfigure with up to 9 parts.
  * Also a method to draw a happy stickman standing on the ground.
  * 
- * @author Camilla
+ * @author Camilla Heiding
  *
  */
 public class Stickman {
